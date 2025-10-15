@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:24:56 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/15 18:29:30 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/15 18:54:35 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 #define CONTACT_HPP
 
 #include <string>
-using namespace std;
 
 class Contact {
 	private:
-		string	first_name;
-		string	last_name;
-		string	nickname;
-		string	phone_number;
-		string	darkest_secret;
+		std::string	first_name;
+		std::string	last_name;
+		std::string	nickname;
+		std::string	phone_number;
+		std::string	darkest_secret;
 	public:
 		Contact(void);
 		~Contact(void);
+		void	setValue(int index, std::string str);
 };
 
 #endif
