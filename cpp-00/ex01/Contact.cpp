@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 17:41:09 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/15 20:13:15 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:40:37 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ std::string	Contact::getValue(int index)
 	if (index == 4)
 		return (this->darkest_secret);
 	return ("");
+}
+
+void	Contact::printContact(int index)
+{
+	std::cout << "|" << std::setw(10) << index;
+	for (int i = 0; i < 3; i++)
+	{
+		std::string field = this->getValue(i);
+		if (field.length() > 10)
+			field = field.substr(0, 9) + ".";
+		std::cout << std::setw(10) << field << "|";
+	}
 }

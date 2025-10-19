@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:25:15 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/15 20:55:26 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/19 13:08:14 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ PhoneBook::~PhoneBook(void)
 void	PhoneBook::addContact(void)
 {
 	std::string input;
-
 	std::string messages[5] = {"Enter first name: ", "Enter last name: ", "Enter nickname: ", "Enter phone number: ", "Enter darkest secret: "};
+	
 	for (int i = 0; i < 5; i++)
 	{
 		std::cout << messages[i];
@@ -44,11 +44,17 @@ void	PhoneBook::searchContact(void)
 	std::cin >> index;
 	if (std::cin.fail() || index < 1 || index > 8)
 		std::cout << "Invalid index. Please enter a number between 1 and 8." << std::endl;
+	else if (contacts[index - 1].getValue(0).empty())
+		std::cout << " |           No contact found                | \n";
 	else
 	{
 		std::cout << " |-------------------------------------------| \n";
 		std::cout << " |     index| Full Name| Last Name|  Nickname| \n";
 		std::cout << " |-------------------------------------------| \n";
+		std::cout << " |         " << std::setw(1) << index << "|";
+		for (int i = 0; i < 3; i++)
+			contacts[index - 1].printContact(i);
+		std::cout << std::endl;
 	}
 }
 

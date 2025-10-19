@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:24:56 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/15 20:11:08 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:00:44 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ class Contact {
 		~Contact(void);
 		void		setValue(int index, std::string str);
 		std::string	getValue(int index);
+		void		printContact(int index);
 };
 
 #endif
