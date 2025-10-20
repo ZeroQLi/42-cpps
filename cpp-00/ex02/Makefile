@@ -4,8 +4,8 @@ COMP = c++
 
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRC = src/PhoneBook.cpp \
-	src/Contact.cpp
+SRC = PhoneBook.cpp \
+	Contact.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

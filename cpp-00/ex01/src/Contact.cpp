@@ -6,12 +6,11 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 17:41:09 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/17 16:40:37 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/19 20:18:49 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
-#include "Contact.hpp"
+#include "../includes/Contact.hpp"
 
 Contact::Contact(void)
 {
@@ -52,7 +51,7 @@ std::string	Contact::getValue(int index)
 
 void	Contact::printContact(int index)
 {
-	std::cout << "|" << std::setw(10) << index;
+	std::cout << "|" << std::setw(10) << index + 1 << "|";
 	for (int i = 0; i < 3; i++)
 	{
 		std::string field = this->getValue(i);

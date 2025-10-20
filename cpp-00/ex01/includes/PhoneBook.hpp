@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:25:18 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/15 18:29:38 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/19 19:57:48 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#pragma once
 
 #include "Contact.hpp"
 #include <string>
@@ -28,5 +27,3 @@ class PhoneBook {
 		void	addContact(void);
 		void	searchContact(void);
 };
-
-#endif

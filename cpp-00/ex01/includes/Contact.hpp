@@ -6,14 +6,15 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:24:56 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/17 16:00:44 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/19 20:03:46 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTACT_HPP
-#define CONTACT_HPP
+#pragma once
 
 #include <string>
+#include <iostream>
+#include <iomanip>
 
 class Contact {
 	private:
@@ -29,5 +30,3 @@ class Contact {
 		std::string	getValue(int index);
 		void		printContact(int index);
 };
-
-#endif
