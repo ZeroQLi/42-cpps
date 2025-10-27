@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:25:15 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/21 12:18:42 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/27 12:10:15 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,70 @@ PhoneBook::PhoneBook(void)
 PhoneBook::~PhoneBook(void)
 {
 	std::cout << "PhoneBook destroyed, good riddance!" << std::endl;
+}
+
+void PhoneBook::addNumber(std::string msg)
+{
+	std::string	input;
+	int			flag;
+	std::locale	loc;
+
+	flag = 0;
+	while (1)
+	{
+		std::cout << msg;
+		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::cout << std::endl;
+			return;
+		}
+		while (input.empty())
+		{
+			std::cout << "WARNING: Empty input. Please enter again: \n"
+					  << msg;
+			std::getline(std::cin, input);
+			if (std::cin.eof())
+				return;
+		}
+		for (int i = 0; i < (int) input.length(); i++)
+		{
+			if (!isdigit(input[i], loc))
+			{
+				std::cout << "WARNING: invalid number, please type a valid number (0-9): \n";
+				flag = 1;
+				break ;
+			}
+		}
+		if (flag == 1)
+		{
+			flag = 0;
+			continue ;
+		}
+		break;
+	}
+	contacts[current].setValue(3, input);
+}
+
+void	PhoneBook::addString(std::string msg, int i)
+{
+	std::string	input;
+
+	std::cout << msg;
+	std::getline(std::cin, input);
+	if (std::cin.eof())
+	{
+		std::cout << std::endl;
+		return;
+	}
+	while (input.empty())
+	{
+		std::cout << "WARNING: Empty input. Please enter again: \n" << msg;
+		std::getline(std::cin, input);
+		if (std::cin.eof())
+			return;
+	}
+	contacts[current].setValue(i, input);
 }
 
 void	PhoneBook::addContact(void)
@@ -49,21 +113,10 @@ void	PhoneBook::addContact(void)
 	}
 	for (int i = 0; i < 5; i++)
 	{
-		std::cout << messages[i];
-		getline(std::cin, input);
-		if (std::cin.eof())
-		{
-			std::cout << std::endl;
-			return;
-		}
-		while (input.empty())
-		{
-			std::cout << "WARNING: Empty input. Please enter again: \n" << messages[i];
-			getline(std::cin, input);
-			if (std::cin.eof())
-				return ;
-		}
-		contacts[current].setValue(i, input);
+		if (i == 3)
+			PhoneBook::addNumber(messages[i]);
+		else
+			PhoneBook::addString(messages[i], i);
 	}
 	current = (current + 1) % 8;
 }
@@ -74,7 +127,7 @@ void	PhoneBook::searchContact(void)
 	int			index;
 
 	std::cout << "Enter contact index to search: ";
-	while (getline(std::cin, input))
+	while (std::getline(std::cin, input))
 	{
 		if (input.empty())
 		{

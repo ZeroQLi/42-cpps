@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:25:18 by mtangalv          #+#    #+#             */
-/*   Updated: 2025/10/19 19:57:48 by mtangalv         ###   ########.fr       */
+/*   Updated: 2025/10/27 12:00:00 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <locale>
+#include <cstdlib>
 
 class PhoneBook {
 	private:
@@ -26,4 +28,6 @@ class PhoneBook {
 		~PhoneBook(void);
 		void	addContact(void);
 		void	searchContact(void);
+		void	addNumber(std::string msg);
+		void	addString(std::string msg, int i);
 };
