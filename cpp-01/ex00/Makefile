@@ -1,11 +1,13 @@
-NAME = phonebook
+NAME = zombie00
 
 COMP = c++
 
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
 SRC = src/main.cpp \
-	src/Zombie.cpp
+	src/Zombie.cpp \
+	src/randomChump.cpp \
+	src/newZombie.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
