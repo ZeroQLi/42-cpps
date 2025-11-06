@@ -5,7 +5,9 @@ COMP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
 SRC = src/main.cpp \
-src/HumanA.cpp src/HumanB.cpp src/Weapon.cpp
+	src/HumanA.cpp \
+	src/HumanB.cpp \
+	src/Weapon.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

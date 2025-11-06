@@ -10,5 +10,6 @@ HumanA::~HumanA()
 
 void	HumanA::attack()
 {
-	std::cout << name << " attacks with their " << std::endl;
+	std::string melee = hand.getType();
+	std::cout << name << " attacks with their " << melee << std::endl;
 }
