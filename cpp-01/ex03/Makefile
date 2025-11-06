@@ -1,10 +1,11 @@
-NAME = zombie02
+NAME = zombie03
 
 COMP = c++
 
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRC = main.cpp
+SRC = src/main.cpp \
+src/HumanA.cpp src/HumanB.cpp src/Weapon.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
