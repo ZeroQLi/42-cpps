@@ -1,10 +1,11 @@
-NAME = bettersed
+NAME = harl2.0
 
 COMP = c++
 
 FLAGS = -Wall -Werror -Wextra -std=c++98 -g3
 
-SRC = main.cpp
+SRC = src/main.cpp \
+	src/Harl.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

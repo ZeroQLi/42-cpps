@@ -1,4 +1,9 @@
-#include "../includes/main.hpp"
+#pragma once
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 
 int	ft_error(int err)
 {
@@ -25,10 +30,11 @@ int	read_and_replace(std::ifstream *infile, std::ofstream *outfile, std::string 
 			before = str.substr(0, result);
 			after = str.substr((result + str1.length()), str.length());
 			str = before + str2 + after;
-			(*outfile) << str << std::endl;
 		}
-		else
+		if (!(*infile).eof())
 			(*outfile) << str << std::endl;
+		else
+			(*outfile) << str;
 	}
 	return (0);
 }
