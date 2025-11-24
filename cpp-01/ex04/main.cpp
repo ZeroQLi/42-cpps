@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -10,7 +8,9 @@ int	ft_error(int err)
 	if (err == 1)
 		std::cerr << "invalid number of arguments\n";
 	else if (err == 2)
-		std::cerr << "ERROR : invalid(or locked) file provided.\n";
+		std::cerr << "ERROR: invalid (or locked) file provided. Please enter a valid file\n";
+	else if (err == 3)
+		std::cerr << "ERROR: Unable to create new file. Please check permissions\n";
 	std::cerr << "Usage: ./bettersed <filename> <string 1> <string 2>\n";
 	exit(0);
 }
@@ -53,7 +53,10 @@ int	main(int argc, char **argv)
 
 	std::ofstream Result(resultname.std::string::c_str());
 	if (!Result.is_open())
-		ft_error(2);
+	{
+		Original.close();
+		ft_error(3);
+	}
 	read_and_replace(&Original, &Result, argv[2], argv[3]);
 	Original.close();
 	Result.close();
