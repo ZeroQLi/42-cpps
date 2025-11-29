@@ -22,36 +22,16 @@ void Harl::warning(void)
 }
 void Harl::error(void)
 {
-	std::cout << "This is unacceptable !I want to speak to the manager now.\n";
+	std::cout << "This is unacceptable! I want to speak to the manager now.\n";
 }
 
 void Harl::complain(std::string level)
 {
 	const std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-	int j = -1;
+	void (Harl::*switches[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 	for (int i = 0; i < 4; i++)
 	{
 		if (levels[i] == level)
-		{
-			j = i;
-			break;
-		}
-	}
-	switch (j)
-	{
-	case 0:
-		Harl::debug();
-		break;
-	case 1:
-		Harl::info();
-		break;
-	case 2:
-		Harl::warning();
-		break;
-	case 3:
-		Harl::error();
-		break;
-	default:
-		std::cout << "Yummy!, no complains at all!\n";
+			(this->*switches[i])();
 	}
 }
