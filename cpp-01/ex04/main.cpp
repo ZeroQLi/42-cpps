@@ -11,6 +11,8 @@ int	ft_error(int err)
 		std::cerr << "ERROR: invalid (or locked) file provided. Please enter a valid file\n";
 	else if (err == 3)
 		std::cerr << "ERROR: Unable to create new file. Please check permissions\n";
+	else if (err == 4)
+		std::cerr << "ERROR: Empty string given\n";
 	std::cerr << "Usage: ./bettersed <filename> <string 1> <string 2>\n";
 	exit(0);
 }
@@ -43,13 +45,15 @@ int	main(int argc, char **argv)
 {
 	if (argc != 4)
 		ft_error(1);
+	else if (argv[2][0] == '\0' || argv[3][0] == '\0')
+		ft_error(4);
 
 	std::string filename = argv[1];
 	std::string resultname = filename + ".replace";
 
 	std::ifstream Original(filename.std::string::c_str());
 	if (!Original.is_open())
-		ft_error(1);
+		ft_error(2);
 
 	std::ofstream Result(resultname.std::string::c_str());
 	if (!Result.is_open())

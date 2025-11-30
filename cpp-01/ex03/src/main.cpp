@@ -19,5 +19,14 @@ int main()
 		club.setType("some other type of club");
 		jim.attack();
 	}
+	{
+		Weapon club = Weapon("");
+		HumanB jancy("Jancy");
+		jancy.attack();
+		jancy.setWeapon(club);
+		jancy.attack();
+		club.setType("giant laser");
+		jancy.attack();
+	}
 	return 0;
 }

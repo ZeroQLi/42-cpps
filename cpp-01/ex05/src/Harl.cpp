@@ -32,6 +32,10 @@ void Harl::complain(std::string level)
 	for (int i = 0; i < 4; i++)
 	{
 		if (levels[i] == level)
+		{
 			(this->*switches[i])();
+			return ;
+		}
 	}
+	std::cout << "Yummmy! No complaints\n";
 }
