@@ -2,6 +2,11 @@
 
 Zombie	*zombieHorde(int N, std::string name)
 {
+	if (name.empty())
+	{
+		std::cerr << "ERROR: invalid name\n";
+		return (NULL);
+	}
 	if (N < 1 || N > 2147483647)
 	{
 		std::cerr << "ERROR: invalid number\n";
