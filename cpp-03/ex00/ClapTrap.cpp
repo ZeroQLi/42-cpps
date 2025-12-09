@@ -45,8 +45,13 @@ void	ClapTrap::attack(const std::string &target)
 {
 	if (this->ep > 0 && this->hp > 0)
 	{
-		std::cout << "ClapTrap " << this->name << " attacks " << target <<", causing " << this->atk <<" points of damage!\n";
-		this->ep--;
+		if (target.empty())
+			std::cout << "ClapTrap " << this->name << " cannot attack. No weapon\n";
+		else
+		{
+			std::cout << "ClapTrap " << this->name << " attacks " << target <<", causing " << this->atk <<" points of damage!\n";
+			this->ep--;
+		}
 	}
 	else if (this->hp > 0)
 		std::cout << "ClapTrap " << this->name << "'s attack fails. No energy points.\n";
@@ -73,7 +78,7 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	if (this->ep == 0)
 		std::cout << "ClapTrap " << this->name << " cannot be Repaired! No Energy points.\n";
 	else if (this->hp == 0)
-		std::cout << "ClapTrap " << this->name << " cannot be Repaired! Already Dead.\n";
+		std::cout << "ClapTrap " << this->name << " cannot be Repaired! Already dead.\n";
 	else if (this->hp == 10)
 		std::cout << "ClapTrap " << this->name << " cannot be Repaired! Already at 10 health points.\n";
 	else if (this->hp + amount > 10)
