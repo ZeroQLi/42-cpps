@@ -27,6 +27,8 @@ int main()
 		jancy.attack();
 		club.setType("giant laser");
 		jancy.attack();
+		club.setType("some other type of club");
+		jancy.attack();
 	}
 	return 0;
 }

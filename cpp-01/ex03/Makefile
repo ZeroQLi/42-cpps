@@ -1,4 +1,4 @@
-NAME = zombie03
+NAME = violence
 
 COMP = c++
 
