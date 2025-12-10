@@ -25,6 +25,10 @@ int main(void)
 
 	std::cout << "\n";
 	boring.attack("");
-	boring.attack("giant laser");
+
+	std::cout << "\n";
+	for (int i = 0; i < 11; i++)
+		boring.attack("giant laser");
+	boring.beRepaired(1);
 	return (0);
 }
