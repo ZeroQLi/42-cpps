@@ -13,9 +13,6 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(COMP) $(FLAGS) -o $(NAME) $(OBJ)
 
-%.o: %.cpp
-	$(COMP) $(FLAGS) -o $@ -c $<
-
 clean:
 	rm -f $(OBJ)
 

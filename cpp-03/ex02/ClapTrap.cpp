@@ -89,4 +89,3 @@ void	ClapTrap::beRepaired(unsigned int amount)
 		std::cout << "ClapTrap " << this->name << " repairs by " << amount << " health points. Total points: " << this->hp << std::endl;
 	}
 }
-
