@@ -1,21 +1,20 @@
-#include "./ClapTrap.hpp"
+#include "./ScavTrap.hpp"
 
 int main(void)
 {
-	ClapTrap trap("Tank");
-	trap.takeDamage(8);
-	trap.takeDamage(2); // Should die
-	trap.takeDamage(5);
+	ScavTrap test("tank");
+	test.attack("giant laser");
+	test.takeDamage(50);
+	test.beRepaired(50);
 
-	trap.beRepaired(1);
+	std::cout << "\n";
+	ScavTrap hello("jester");
+	hello.beRepaired(10);
+	hello.takeDamage(10);
+	hello.beRepaired(10);
 
-	ClapTrap does(trap);
-	does.attack("laser");
-
-	ClapTrap meow = trap;
-	meow.beRepaired(4);
-
-	ClapTrap boring("spare");
-	boring.takeDamage(1);
-	return (0);
+	std::cout << "\n";
+	hello.guardGate();
+	hello.guardGate();
+	hello.guardGate();
 }

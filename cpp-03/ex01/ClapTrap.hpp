@@ -6,7 +6,7 @@
 
 class ClapTrap
 {
-	private:
+	protected:
 		std::string		name;
 		unsigned int	hp;
 		unsigned int	ep;
