@@ -40,5 +40,5 @@ std::string Animal::getType(void) const
 
 void Animal::makeSound() const
 {
-	std::cout << this->getType() << " says: 'I'm default, make me special'\n";
+	std::cout << "its an animal, it doesn't make noises\n";
 }
