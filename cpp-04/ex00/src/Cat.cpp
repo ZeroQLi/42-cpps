@@ -9,9 +9,10 @@ Cat::Cat(): Animal()
 }
 
 // Copy constructor
-Cat::Cat(const Cat &other): Animal(other)
+Cat::Cat(const Cat &other): Animal()
 {
 	std::cout << "cat copy constructor called" << std::endl;
+	*this = other;
 	return ;
 }
 

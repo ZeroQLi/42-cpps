@@ -1,7 +1,7 @@
 #include "../includes/WrongAnimal.hpp"
 
 // Default constructor
-WrongAnimal::WrongAnimal(void): type("default wrong")
+WrongAnimal::WrongAnimal(void): type("wrong default")
 {
 	std::cout << "WrongAnimal default constructor called" << std::endl;
 	return ;
@@ -18,12 +18,12 @@ WrongAnimal::WrongAnimal(const WrongAnimal &other)
 // Assignment operator overload
 WrongAnimal &WrongAnimal::operator=(const WrongAnimal &other)
 {
-    std::cout << "wrongAnimal assignment operator called" << std::endl;
-    if (this != &other)
-    {
-        
-    }
-    return (*this);
+	std::cout << "wrongAnimal assignment operator called" << std::endl;
+	if (this != &other)
+	{
+		this->type = other.type;
+	}
+	return (*this);
 }
 
 // Destructor

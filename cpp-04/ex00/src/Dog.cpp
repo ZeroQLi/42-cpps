@@ -9,9 +9,10 @@ Dog::Dog(void): Animal()
 }
 
 // Copy constructor
-Dog::Dog(const Dog &other): Animal(other)
+Dog::Dog(const Dog &other): Animal()
 {
 	std::cout << "Dog copy constructor called" << std::endl;
+	*this = other;
 	return ;
 }
 
