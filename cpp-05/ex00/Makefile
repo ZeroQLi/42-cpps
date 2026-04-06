@@ -1,10 +1,11 @@
-NAME = beureaucrat
+NAME = bureaucrat
 
 COMP = c++
 
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRC = src/Bureaucrat.cpp
+SRC = src/Bureaucrat.cpp \
+src/main.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
