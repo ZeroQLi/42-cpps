@@ -11,13 +11,13 @@ Bureaucrat::Bureaucrat(std::string name) : name(name), grade(75)
 	std::cout << "Bureaucrat constructor with name " << name << " called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(size_t grade) : name("Bob")
+Bureaucrat::Bureaucrat(int grade) : name("Bob")
 {
 	std::cout << "Bureaucrat constructor with grade " << grade << " called" << std::endl;
 	this->setGrade(grade);
 }
 
-Bureaucrat::Bureaucrat(std::string name, size_t grade) : name(name)
+Bureaucrat::Bureaucrat(std::string name, int grade) : name(name)
 {
 	std::cout << "Bureaucrat constructor with name " << name << " and grade " << grade << " called" << std::endl;
 	this->setGrade(grade);
@@ -45,7 +45,7 @@ Bureaucrat::~Bureaucrat(void)
 }
 
 // Getters
-size_t Bureaucrat::getGrade(void) const
+int Bureaucrat::getGrade(void) const
 {
 	return (this->grade);
 }

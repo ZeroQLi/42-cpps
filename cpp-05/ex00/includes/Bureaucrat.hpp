@@ -8,20 +8,20 @@ class Bureaucrat
 {
 	private:
 		const std::string	name;
-		size_t				grade;
+		int					grade;
 		void				setGrade(int num);
 
 	public:
 		Bureaucrat(void);
-		Bureaucrat(size_t grade);
+		Bureaucrat(int grade);
 		Bureaucrat(std::string name);
-		Bureaucrat(std::string name, size_t grade);
+		Bureaucrat(std::string name, int grade);
 		
 		Bureaucrat(const Bureaucrat& other);
 		Bureaucrat &operator=(const Bureaucrat &other);
 		~Bureaucrat();
 
-		size_t				getGrade(void) const;
+		int					getGrade(void) const;
 		const std::string	getName(void) const;
 
 		void				incrementGrade(void);
