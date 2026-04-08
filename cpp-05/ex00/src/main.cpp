@@ -2,7 +2,7 @@
 
 int main(void)
 {
-	Bureaucrat defaultBureaucrat;
+	Bureaucrat *defaultBureaucrat = new Bureaucrat();
 	Bureaucrat namedBureaucrat("Alice");
 	Bureaucrat gradedBureaucrat(149);
 	Bureaucrat fullBureaucrat("Alan", 2);
@@ -20,7 +20,7 @@ int main(void)
 		std::cerr << e.what() << '\n';
 	}
 
-	std::cout << std::endl << defaultBureaucrat << std::endl << std::endl;
+	std::cout << *defaultBureaucrat << std::endl << std::endl;
 
 	std::cout << namedBureaucrat << std::endl;
 	namedBureaucrat.incrementGrade();
@@ -68,4 +68,6 @@ int main(void)
 		std::cerr << "ERROR: " << e.what() << '\n';
 	}
 	std::cout << fullBureaucrat << std::endl << std::endl;
+
+	delete defaultBureaucrat;
 }
