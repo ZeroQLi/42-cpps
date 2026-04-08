@@ -6,22 +6,66 @@ int main(void)
 	Bureaucrat namedBureaucrat("Alice");
 	Bureaucrat gradedBureaucrat(149);
 	Bureaucrat fullBureaucrat("Alan", 2);
-	Bureaucrat falseBureaucrat("Rebel", 200);
+	Bureaucrat b1("bento", 50);
+	Bureaucrat b2 = b1; // copy constructor
+	Bureaucrat b3("bepop", 75);
+	b3 = b1; // assignment operator
 
-	std::cout << std::endl;
-	std::cout << fullBureaucrat << std::endl;
+	try
+	{
+		Bureaucrat falseBureaucrat("Rebel", 200);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 
-	fullBureaucrat.incrementGrade();
-	std::cout << fullBureaucrat << std::endl;
+	std::cout << std::endl << defaultBureaucrat << std::endl << std::endl;
 
-	fullBureaucrat.incrementGrade();
-	std::cout << std::endl << std::endl;
+	std::cout << namedBureaucrat << std::endl;
+	namedBureaucrat.incrementGrade();
+	namedBureaucrat.incrementGrade();
+	std::cout << namedBureaucrat << std::endl;
+	namedBureaucrat.decrementGrade();
+	std::cout << namedBureaucrat << std::endl << std::endl;
 
 	std::cout << gradedBureaucrat << std::endl;
-
-	gradedBureaucrat.decrementGrade();
+	try
+	{
+		gradedBureaucrat.decrementGrade();
+	}
+	catch (const std::exception &e)
+	{
+		std::cerr << "ERROR: " << e.what() << '\n';
+	}
 	std::cout << gradedBureaucrat << std::endl;
+	try
+	{
+		gradedBureaucrat.decrementGrade();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "ERROR: " << e.what() << '\n';
+	}
+	std::cout << gradedBureaucrat << std::endl << std::endl;
 
-	gradedBureaucrat.decrementGrade();
-	std::cout << std::endl;
+	std::cout << fullBureaucrat << std::endl;
+	try
+	{
+		fullBureaucrat.incrementGrade();
+	}
+	catch (const std::exception &e)
+	{
+		std::cerr << "ERROR: " << e.what() << '\n';
+	}
+	std::cout << fullBureaucrat << std::endl;
+	try
+	{
+		fullBureaucrat.incrementGrade();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "ERROR: " << e.what() << '\n';
+	}
+	std::cout << fullBureaucrat << std::endl << std::endl;
 }
