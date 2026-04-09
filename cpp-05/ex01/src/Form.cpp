@@ -51,7 +51,7 @@ Form &Form::operator=(const Form &other)
 {
 	std::cout << "Form assignment operator called" << std::endl;
 	if (this != &other)
-		this->isSigned = other.getSign();
+		*this = other;
 	return (*this);
 }
 
