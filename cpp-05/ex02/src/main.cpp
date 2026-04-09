@@ -18,7 +18,7 @@ int	main(void)
 	subject.signForm(normal);
 
 	subject.executeForm(normal);
-
+	std::cout << std::endl;
 	for (int i = 0; i < 8; i++)
 		subject.incrementGrade();
 	std::cout << subject << std::endl;
@@ -31,7 +31,7 @@ int	main(void)
 	RobotomyRequestForm robot("potato");
 	std::cout << dummy << std::endl << robot << std::endl;
 
-	robot.beSigned(dummy);
+	dummy.signForm(robot);
 
 	std::cout << std::endl;
 	dummy.executeForm(robot);
@@ -44,10 +44,11 @@ int	main(void)
 	std::cout << criminal << std::endl
 			  << contract << std::endl;
 
-	contract.beSigned(criminal);
+	criminal.signForm(contract);
 
 	std::cout << std::endl;
 	criminal.executeForm(contract);
 	std::cout << "\n\n";
+	
 	return 0;
 }

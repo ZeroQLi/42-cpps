@@ -54,7 +54,7 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 	else
 	{
 		std::cout << "By the order of Zaphod Beeblebrox!!!!!!\n"
-		<< this->getTarget() << " has been pardoned.";
+		<< this->getTarget() << " has been pardoned.\n";
 	}
 }
 
