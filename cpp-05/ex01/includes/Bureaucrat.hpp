@@ -3,7 +3,9 @@
 
 # include <iostream>
 # include <string>
-# include "./Form.hpp"
+# include <exception>
+
+class Form;
 
 class Bureaucrat
 {

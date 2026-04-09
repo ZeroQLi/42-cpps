@@ -1,4 +1,5 @@
 #include "../includes/Bureaucrat.hpp"
+#include "../includes/Form.hpp"
 
 // Default constructor
 Bureaucrat::Bureaucrat(void) : name("Bob"), grade(75)
@@ -67,8 +68,14 @@ void Bureaucrat::setGrade(int num)
 
 void	Bureaucrat::signForm(Form &form)
 {
-	form.beSigned(*this);
-	
+	try
+	{
+		form.beSigned(*this);
+	}
+	catch (const std::exception &e)
+	{
+		std::cerr << "SIGNING FAILED: " << e.what() << '\n';
+	}
 }
 
 // Exceptions
