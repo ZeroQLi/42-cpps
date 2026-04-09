@@ -58,8 +58,7 @@ Form &Form::operator=(const Form &other)
 // Destructor
 Form::~Form(void)
 {
-	std::cout << "Form destructor called" << std::endl;
-
+	std::cout << "Form Deconstructor for " << this->getName() << " called" << std::endl;
 }
 
 // Getters
