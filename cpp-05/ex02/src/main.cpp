@@ -48,7 +48,7 @@ int	main(void)
 
 	std::cout << std::endl;
 	criminal.executeForm(contract);
-	std::cout << "\n\n";
-	
+	std::cout << "\n";
+
 	return 0;
 }
