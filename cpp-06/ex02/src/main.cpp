@@ -60,11 +60,16 @@ void	identify(Base &p)
 
 int main(void)
 {
-	std::srand(std::time(0));
-	Base *base = generate();
-	Base &ref = *base;
-
-	identify(base);
-	identify(ref);
-	delete base;
+	std::srand(std::time(NULL));
+	for (int i = 0; i < 3; i++)
+	{
+		Base *base = generate();
+		Base &ref = *base;
+		if (!base)
+			return (1);
+		identify(base);
+		identify(ref);
+		delete base;
+		std::cout << "\n";
+	}
 }
