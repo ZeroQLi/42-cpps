@@ -4,7 +4,6 @@
 ScalarConverter::ScalarConverter(void)
 {
 	std::cout << "ScalarConverter default constructor called" << std::endl;
-	return ;
 }
 
 // Copy constructor
@@ -26,7 +25,6 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
 ScalarConverter::~ScalarConverter(void)
 {
 	std::cout << "ScalarConverter destructor called" << std::endl;
-	return ;
 }
 
 // Check Functions
