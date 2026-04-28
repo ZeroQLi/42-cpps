@@ -177,8 +177,8 @@ void	printInt(const std::string &str)
 		std::cout << "int: impossible" << std::endl;
 	else
 		std::cout << "int: " << static_cast<int>(i) << std::endl;
-	std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << "f" << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(i) << std::endl;
 }
 
 
@@ -198,8 +198,8 @@ void	printFloat(const std::string &str)
 	if (f < FLOAT_MIN || f > FLOAT_MAX)
 		std::cout << "float: impossible" << std::endl;
 	else
-		std::cout << "float: " << f << "f" << std::endl;
-	std::cout << "double: " << static_cast<double>(f) << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(f) << std::endl;
 }
 
 void	printDouble(const std::string &str)
@@ -218,8 +218,8 @@ void	printDouble(const std::string &str)
 	if (d < FLOAT_MIN || d > FLOAT_MAX)
 		std::cout << "float: impossible" << std::endl;
 	else
-		std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-	std::cout << "double: " << d << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(1) << d << std::endl;
 }
 // Main function
 void	ScalarConverter::convert(const std::string &str)

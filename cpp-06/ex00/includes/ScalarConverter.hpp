@@ -6,6 +6,7 @@
 # include <cstdlib>
 # include <cctype>
 # include <limits>
+# include <iomanip>
 
 # define INT_MIN std::numeric_limits<int>::min()
 # define INT_MAX std::numeric_limits<int>::max()
