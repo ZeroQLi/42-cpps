@@ -144,10 +144,7 @@ void	printEdge(const std::string &str)
 void	printChar(const std::string &str, int &len)
 {
 	char c;
-	if (len == 1)
-		c = str[0];
-	else
-		c = str[1];
+	c = (len == 1 ? str[0] : str[1]);
 	if (isprint(c))
 	{
 		std::cout << "char: '" << c << "'" << std::endl;
