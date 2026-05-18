@@ -5,6 +5,7 @@
 # include <exception>
 # include <time.h>
 # include <stdlib.h>
+
 template <typename T>
 class Array
 {

@@ -1,4 +1,4 @@
-#include "Array.hpp"
+#pragma once
 
 template <typename T>
 Array<T>::Array(void): arr(NULL), _size(0)
