@@ -1,4 +1,4 @@
-NAME = iter
+NAME = iterations
 
 COMP = c++
 
