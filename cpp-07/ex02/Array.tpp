@@ -1,5 +1,4 @@
-#ifndef ARRAY_TPP
-# define ARRAY_TPP
+#include "Array.hpp"
 
 template <typename T>
 Array<T>::Array(void): arr(NULL), _size(0)
@@ -63,4 +62,3 @@ const char *Array<T>::OutOfBoundsException::what() const throw()
 {
 	return ("Index out of bounds");
 }
-#endif
