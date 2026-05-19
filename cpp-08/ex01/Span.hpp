@@ -24,7 +24,6 @@ class Span
 
 		int		shortestSpan();
 		int		longestSpan();
-		void	printSpan(); // TEMPOPARY
 
 		class OverflowException: public std::exception
 		{

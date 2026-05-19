@@ -45,14 +45,6 @@ void Span::addNumber(const std::vector<int>::iterator &it1, const std::vector<in
 	arr.insert(arr.end(), it1, it2);
 }
 
-void Span::printSpan()
-{
-	for (unsigned int i = 0; i < arr.size(); i++)
-	{
-		std::cout << arr[i] << " ";
-	}
-}
-
 int	Span::shortestSpan()
 {
 	if (arr.size() <= 1)
