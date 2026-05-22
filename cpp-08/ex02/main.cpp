@@ -57,8 +57,8 @@ int main()
 	mystrings.push("is");
 	mystrings.push("cs50");
 
-	MutantStack<std::string>::iterator it_strings = mystrings.begin();
-	MutantStack<std::string>::iterator ite_strings = mystrings.end();
+	MutantStack<std::string>::reverse_iterator it_strings = mystrings.rbegin();
+	MutantStack<std::string>::reverse_iterator ite_strings = mystrings.rend();
 	std::cout << "\n";
 	while (it_strings != ite_strings)
 	{
