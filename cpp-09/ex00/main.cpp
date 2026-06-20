@@ -13,6 +13,6 @@ int main(int argc, char **argv)
 	else
 	{
 		BitcoinExchange exchange;
-		std::cout << argv[1];
+		exchange.readInput(argv[1]);
 	}
 }

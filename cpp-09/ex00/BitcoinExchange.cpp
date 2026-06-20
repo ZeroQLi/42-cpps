@@ -3,7 +3,7 @@
 // Default constructor
 BitcoinExchange::BitcoinExchange(void)
 {
-	dumpDatabase();
+	_dumpDatabase();
 	return ;
 }
 
@@ -27,7 +27,7 @@ BitcoinExchange::~BitcoinExchange(void)
 	return ;
 }
 
-void BitcoinExchange::dumpDatabase()
+void BitcoinExchange::_dumpDatabase()
 {
 	std::ifstream	file("data.csv");
 	std::string		line;
@@ -54,4 +54,103 @@ void BitcoinExchange::dumpDatabase()
 		charts[date] = priceVal;
 	}
 	file.close();
+}
+
+void BitcoinExchange::readInput(const char *file)
+{
+	std::string		inputFile;
+	inputFile = file;
+	std::string line;
+
+	std::ifstream	input(file);
+	if (!input.is_open())
+		return ; // error
+
+	std::getline(input, line);
+	if (line != "date | value")
+		return ; // exaact match error
+
+	while (std::getline(input, line))
+	{
+		std::string	date;
+		std::string	value;
+		double	multiplier;
+
+		std::stringstream	ss(line);
+		std::getline(ss, date, '|');
+		std::getline(ss, value, '|');
+
+		if (!date.empty())
+			date = date.erase(date.length() - 1);
+		if (!_checkDate(date))
+		{
+			std::cout << "input date error: " << date << "\n";
+			continue ;
+		}
+		if (!value.empty())
+			value = value.erase(0, 1);
+		multiplier = _getValue(value);
+		if (multiplier == -1)
+			continue ;
+		std::cout << date << " | " << multiplier << "\n";
+	}
+	input.close();
+}
+
+bool BitcoinExchange::_checkDate(const std::string &date)
+{
+	std::string year;
+	std::string month;
+	std::string day;
+
+	if (date.length() != 10)
+		return false; // not 10chars long
+	if (date[4] != '-' || date[7] != '-')
+		return false; // doens't have a dash to seperate year/day/month
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (i == 4 || i == 7)
+			continue;
+		if (!isdigit(date[i]))
+			return false;
+	}
+	std::stringstream ss(date);
+
+	std::getline(ss, year, '-');
+	std::getline(ss, month, '-');
+	std::getline(ss, day, '-');
+
+	if (month[0] == '0' && month[1] == '0')
+		return false;
+	if ((month[0] == '1' && month[1] > '2') || month[0] > '1')
+		return false;
+	if (day[0] == '0' && day[1] == '0')
+		return false;
+	if ((day[8] == '3' && day[9] > '1') || day[8] > '3')
+		return (false);
+	return true;
+}
+
+double BitcoinExchange::_getValue(const std::string &value)
+{
+	std::stringstream ss(value);
+	double		val;
+
+	if (!(ss >> val))
+	{
+		std::cout << "Error: bad value input: " << val << std::endl;
+		return (-1);
+	}
+	if (val < 0)
+	{
+		std::cout << "Error: not a positive number\n";
+		return (-1);
+	}
+	else if (val > 1000)
+	{
+		std::cout << "Error: value too large (>1000)\n";
+		return (-1);
+	}
+	return (val);
 }

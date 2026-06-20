@@ -10,14 +10,17 @@ class BitcoinExchange
 {
 	private:
 		std::map<std::string, double>	charts;
-		void	dumpDatabase();
+		void	_dumpDatabase();
+		bool _checkDate(const std::string &date);
+		double	_getValue(const std::string &value);
 
 	public:
 		BitcoinExchange(void);
 		BitcoinExchange(const BitcoinExchange& other);
 		BitcoinExchange &operator=(const BitcoinExchange &other);
 		~BitcoinExchange();
+
+		void	readInput(const char *file);
 };
 
 #endif
-
