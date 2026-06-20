@@ -13,6 +13,7 @@ class BitcoinExchange
 		void	_dumpDatabase();
 		bool _checkDate(const std::string &date);
 		double	_getValue(const std::string &value);
+		void	_printResult(const std::string &date, double multiplier);
 
 	public:
 		BitcoinExchange(void);

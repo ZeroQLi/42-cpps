@@ -48,7 +48,7 @@ void BitcoinExchange::_dumpDatabase()
 		std::getline(ss, price, ',');
 
 		double priceVal;
-		std::stringstream ps(line);
+		std::stringstream ps(price);
 		if (!(ps >> priceVal))
 			return ; // price value invalid error
 		charts[date] = priceVal;
@@ -92,9 +92,31 @@ void BitcoinExchange::readInput(const char *file)
 		multiplier = _getValue(value);
 		if (multiplier == -1)
 			continue ;
-		std::cout << date << " | " << multiplier << "\n";
+		_printResult(date, multiplier);
 	}
 	input.close();
+}
+
+void BitcoinExchange::_printResult(const std::string &date, double multiplier)
+{
+	std::map<std::string, double>::iterator it;
+	std::map<std::string, double>::iterator itl;
+
+	it = charts.find(date);
+	if (it != charts.end())
+		// std::cout << it->first << " | " << multiplier << " | " << it->second << " | " << multiplier * it->second << std::endl;
+		std::cout << it->first << " | " << multiplier << " | " << multiplier * it->second << std::endl;
+	else
+	{
+		itl = charts.lower_bound(date);
+		if (itl == charts.begin())
+			std::cout << itl->first << " | " << multiplier << " | " << multiplier * itl->second << std::endl;
+		else
+		{
+			itl--;
+			std::cout << itl->first << " | " << multiplier << " | " << multiplier * itl->second << std::endl;
+		}
+	}
 }
 
 bool BitcoinExchange::_checkDate(const std::string &date)
@@ -139,17 +161,17 @@ double BitcoinExchange::_getValue(const std::string &value)
 
 	if (!(ss >> val))
 	{
-		std::cout << "Error: bad value input: " << val << std::endl;
+		std::cout << "Error: bad value input (" << val << ")\n";
 		return (-1);
 	}
 	if (val < 0)
 	{
-		std::cout << "Error: not a positive number\n";
+		std::cout << "Error: not a positive number (" << val << ")\n";
 		return (-1);
 	}
 	else if (val > 1000)
 	{
-		std::cout << "Error: value too large (>1000)\n";
+		std::cout << "Error: value too large (" << val << ")\n";
 		return (-1);
 	}
 	return (val);
