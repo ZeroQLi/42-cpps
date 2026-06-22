@@ -10,14 +10,14 @@ BitcoinExchange::BitcoinExchange(void)
 // Copy constructor
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
 {
-	(void) other;
-	return ;
+	(*this) = other;
 }
 
 // Assignment operator overload
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 {
-	(void) other;
+	if (this != &other)
+		charts = other.charts;
 	return (*this);
 }
 
