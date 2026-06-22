@@ -13,6 +13,13 @@ int main(int argc, char **argv)
 	else
 	{
 		BitcoinExchange exchange;
-		exchange.readInput(argv[1]);
+		try
+		{
+			exchange.readInput(argv[1]);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << "ERROR: " << e.what() << '\n';
+		}
 	}
 }
