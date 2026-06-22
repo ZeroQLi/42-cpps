@@ -3,7 +3,9 @@
 
 # include <iostream>
 # include <sstream>
+# include <cctype>
 # include <stack>
+
 class RPN
 {
 	private:
@@ -21,7 +23,7 @@ class RPN
 		RPN &operator=(const RPN &other);
 		~RPN();
 
-		double calc(const std::string &expr);
+		void calc(const std::string &expr);
 		double getResult() const;
 		class InvalidExpr : public std::exception
 		{
@@ -32,7 +34,7 @@ class RPN
 				}
 		};
 
-		class DivsionByZero : public std::exception
+		class DivisionByZero : public std::exception
 		{
 			public:
 				virtual const char *what() const throw()
@@ -41,12 +43,21 @@ class RPN
 				}
 		};
 
-		class emptyStack : public std::exception
+		class EmptyStack : public std::exception
 		{
 			public:
 				virtual const char *what() const throw()
 				{
 					return ("Invalid expression: Stack Empty");
+				}
+		};
+
+		class MultiStack : public std::exception
+		{
+			public:
+				virtual const char *what() const throw()
+				{
+					return ("Invalid expression: Multiple items in stack");
 				}
 		};
 };

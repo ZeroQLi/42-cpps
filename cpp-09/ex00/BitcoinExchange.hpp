@@ -4,6 +4,7 @@
 # include <iostream>
 # include <fstream>
 # include <sstream>
+# include <cctype>
 # include <map>
 
 class BitcoinExchange

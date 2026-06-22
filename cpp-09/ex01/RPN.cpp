@@ -25,16 +25,8 @@ RPN::~RPN(void)
 	return ;
 }
 
-double RPN::calc(const std::string &expr)
+void RPN::calc(const std::string &expr)
 {
-	for (size_t i = 0; i < expr.length(); i++)
-	{
-		if (!isdigit(expr[i]))
-		{
-			if (expr[i] != '+' && expr[i] != '-' && expr[i] != '*' && expr[i] != '/' && expr[i] != ' ')
-				throw RPN::InvalidExpr();
-		}
-	}
 	std::stringstream ss(expr);
 	std::string token;
 	double num;
@@ -43,16 +35,19 @@ double RPN::calc(const std::string &expr)
 	{
 		if (isdigit(token[0]))
 		{
-			std::stringstream(token) >> num;
+			std::stringstream tokenStream(token);
+			tokenStream >> num;
+			if (tokenStream.fail() || !tokenStream.eof())
+				throw InvalidExpr();
 			_stack.push(num);
 		}
-		else
+		else if (token == "+" || token == "-" || token == "*" || token == "/")
 		{
 			double a;
 			double b;
 
 			if (_stack.size() < 2)
-				throw emptyStack();
+				throw EmptyStack();
 
 			a = _stack.top();
 			_stack.pop();
@@ -60,8 +55,9 @@ double RPN::calc(const std::string &expr)
 			_stack.pop();
 			_stack.push(execOperation(a, b, token));
 		}
+		else
+			throw InvalidExpr();
 	}
-	return 0;
 }
 
 double RPN::execOperation(double a, double b, const std::string &op)
@@ -72,7 +68,9 @@ double RPN::execOperation(double a, double b, const std::string &op)
 		return _subtract(a, b);
 	else if (op == "*")
 		return _multiply(a, b);
-	return _divide(a , b);
+	else if (op == "/")
+		return _divide(a , b);
+	throw InvalidExpr();
 }
 
 double RPN::_add(double a, double b)
@@ -93,15 +91,15 @@ double RPN::_multiply(double a, double b)
 double RPN::_divide(double a, double b)
 {
 	if (a == 0)
-		throw DivsionByZero();
+		throw DivisionByZero();
 	return (b / a);
 }
 
 double RPN::getResult() const
 {
 	if (_stack.empty())
-		throw emptyStack();
-	// else if (_stack.size() > 1)
-	// 	throw RPN::invalidArgument("Invalid argument");
+		throw EmptyStack();
+	else if (_stack.size() > 1)
+		throw MultiStack();
 	return (_stack.top());
 }
