@@ -61,8 +61,6 @@ void BitcoinExchange::_dumpDatabase()
 
 void BitcoinExchange::readInput(const char *file)
 {
-	std::string		inputFile;
-	inputFile = file;
 	std::string line;
 
 	std::ifstream	input(file);
@@ -87,10 +85,10 @@ void BitcoinExchange::readInput(const char *file)
 			date = date.erase(date.length() - 1);
 		if (!_checkDate(date))
 		{
-			std::cout << "input date error: " << date << "\n";
+			std::cerr << "input date error: " << date << "\n";
 			continue ;
 		}
-		if (!value.empty())
+		if (!value.empty() && value[0] == ' ')
 			value = value.erase(0, 1);
 		multiplier = _getValue(value);
 		if (multiplier == -1)
@@ -107,13 +105,12 @@ void BitcoinExchange::_printResult(const std::string &date, double multiplier)
 
 	it = charts.find(date);
 	if (it != charts.end())
-		// std::cout << date << " | " << multiplier << " | " << it->second << " | " << multiplier * it->second << std::endl;
 		std::cout << date << " => " << multiplier << " = " << multiplier * it->second << std::endl;
 	else
 	{
 		itl = charts.lower_bound(date);
 		if (itl == charts.begin())
-			std::cout << date << " => " << multiplier << " = " << multiplier * itl->second << std::endl;
+			std::cerr << "Error: no historical data available for date " << date << std::endl;
 		else
 		{
 			itl--;
@@ -124,14 +121,12 @@ void BitcoinExchange::_printResult(const std::string &date, double multiplier)
 
 bool BitcoinExchange::_checkDate(const std::string &date)
 {
-	std::string year;
-	std::string month;
-	std::string day;
+	std::string yearStr, monthStr, dayStr;
 
 	if (date.length() != 10)
-		return false; // not 10chars long
+		return false;
 	if (date[4] != '-' || date[7] != '-')
-		return false; // doens't have a dash to seperate year/day/month
+		return false;
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -142,18 +137,46 @@ bool BitcoinExchange::_checkDate(const std::string &date)
 	}
 	std::stringstream ss(date);
 
-	std::getline(ss, year, '-');
-	std::getline(ss, month, '-');
-	std::getline(ss, day, '-');
+	std::getline(ss, yearStr, '-');
+	std::getline(ss, monthStr, '-');
+	std::getline(ss, dayStr, '-');
 
-	if (month[0] == '0' && month[1] == '0')
+	std::stringstream yy(yearStr), mm(monthStr), dd(dayStr);
+	int	year, month, day;
+
+	yy >> year;
+	mm >> month;
+	dd >> day;
+
+	bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+	
+	// Validate numeric ranges for month and day
+	if (month < 1 || month > 12)
 		return false;
-	if ((month[0] == '1' && month[1] > '2') || month[0] > '1')
+	if (day < 1)
 		return false;
-	if (day[0] == '0' && day[1] == '0')
+	if (month == 2)
+	{
+		if (isLeap)
+		{
+			if (day > 29)
+				return false;
+		}
+		else
+		{
+			if (day > 28)
+				return false;
+		}
+		return true;
+	}
+	if (month == 4 || month == 6 || month == 9 || month == 11)
+	{
+		if (day > 30)
+			return false;
+		return true;
+	}
+	if (day > 31)
 		return false;
-	if ((day[0] == '3' && day[1] > '1') || day[0] > '3')
-		return (false);
 	return true;
 }
 
@@ -164,7 +187,7 @@ double BitcoinExchange::_getValue(const std::string &value)
 
 	if (!(ss >> val))
 	{
-		std::cout << "Error: bad value input => " << val << "\n";
+		std::cout << "Error: bad value input\n";
 		return (-1);
 	}
 	if (val < 0)

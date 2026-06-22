@@ -12,9 +12,9 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		BitcoinExchange exchange;
 		try
 		{
+			BitcoinExchange exchange;
 			exchange.readInput(argv[1]);
 		}
 		catch(const std::exception& e)
