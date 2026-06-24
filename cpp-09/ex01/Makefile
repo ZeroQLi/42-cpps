@@ -5,7 +5,8 @@ COMP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
 SRC = main.cpp \
-RPN.cpp
+	RPN.cpp
+
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
