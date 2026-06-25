@@ -3,7 +3,6 @@
 
 # include <iostream>
 # include <sstream>
-# include <iomanip>
 
 # include <ctime>
 # include <cstdlib>
@@ -25,6 +24,7 @@ int					checkStray(const std::vector<int> &vec);
 std::vector<int>	recursiveMergeSort(std::vector<int> &vec);
 std::vector<int>	generateJacobsthalNumbers(int n);
 
+std::vector<int>	timedVectorSort(std::vector<int> &vec, double &elapsedMs);
 
 class CustomException : public std::runtime_error
 {

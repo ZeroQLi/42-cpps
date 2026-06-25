@@ -19,6 +19,16 @@ std::vector<int> validateArgs(int argc, char **argv)
 	return sequence;
 }
 
+std::vector<int> timedVectorSort(std::vector<int> &vec, double &elapsedMs)
+{
+	std::clock_t start = std::clock();
+	std::vector<int> result = recursiveMergeSort(vec);
+	std::clock_t end = std::clock();
+
+	elapsedMs = (double)(end - start) / CLOCKS_PER_SEC * 1000.0;
+	return result;
+}
+
 std::vector<Pair> createSortedPairs(const std::vector<int> &vec)
 {
 	std::vector<Pair> pairs;

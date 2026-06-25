@@ -15,18 +15,23 @@ int main(int argc, char **argv)
 	{
 		try
 		{
+			double VecTimeMs;
+			// double DeqTimeMs;
+
 			vec = validateArgs(argc, argv);
 			deq.assign(vec.begin(), vec.end());
 
 			std::cout << "Before: ";
-			for (size_t i = 0; i < vec.size(); i++)
+			for (size_t i = 0; i < vec.size() - 1; i++)
 				std::cout << vec[i] << " ";
-			std::cout << std::endl;
+			std::cout << vec[vec.size() - 1] << "\n";
 
-			std::vector<int> sortedVec = recursiveMergeSort(vec);
-			std::cout << "After: ";
-			for (size_t i = 0; i < sortedVec.size(); i++)
+			std::vector<int> sortedVec = timedVectorSort(vec, VecTimeMs);
+			std::cout << "After:  ";
+			for (size_t i = 0; i < sortedVec.size() - 1; i++)
 				std::cout << sortedVec[i] << ' ';
+			std::cout << sortedVec[vec.size() - 1] << "\n";
+			std::cout << "Time to process a range of " << vec.size() << "elements with std::vector: " << VecTimeMs << " ms\n";
 		}
 		catch(const std::exception& e)
 		{
