@@ -167,7 +167,6 @@ bool BitcoinExchange::_checkDate(const std::string &date)
 			if (day > 28)
 				return false;
 		}
-		return true;
 	}
 	if (month == 4 || month == 6 || month == 9 || month == 11)
 	{

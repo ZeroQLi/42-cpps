@@ -33,16 +33,20 @@ void RPN::calc(const std::string &expr)
 
 	while (std::getline(ss, token, ' '))
 	{
+		if (token.length() != 1)
+			throw InvalidExpr();
 		if (isdigit(token[0]))
 		{
 			std::stringstream tokenStream(token);
 			tokenStream >> num;
-			if (tokenStream.fail() || !tokenStream.eof())
+			if (tokenStream.fail() || !tokenStream.eof() || _stack.size() == 2)
 				throw InvalidExpr();
 			_stack.push(num);
 		}
 		else if (token == "+" || token == "-" || token == "*" || token == "/")
 		{
+			if (_stack.size() != 2)
+				throw InvalidExpr();
 			double a;
 			double b;
 
