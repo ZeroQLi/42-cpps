@@ -20,12 +20,19 @@ std::vector<Pair>	createSortedPairs(const std::vector<int> &vec);
 std::vector<int>	extractLargerElements(const std::vector<Pair> &pairs);
 std::vector<int>	extractSmallerElements(const std::vector<Pair> &pairs);
 int					checkStray(const std::vector<int> &vec);
-
+int					binarySearchInsert(const std::vector<int> &vec, int target, int low, int high);
 std::vector<int>	recursiveMergeSort(std::vector<int> &vec);
+
+std::deque<Pair>	createSortedPairsDeque(const std::deque<int> &deq);
+std::deque<int>		extractLargerElementsDeque(const std::deque<Pair> &pairs);
+std::deque<int>		extractSmallerElementsDeque(const std::deque<Pair> &pairs);
+int					checkStrayDeque(const std::deque<int> &deq);
+int					binarySearchInsertDeque(const std::deque<int> &deq, int target, int low, int high);
+std::deque<int>		recursiveMergeSortDeque(std::deque<int> &deq);
+
 std::vector<int>	generateJacobsthalNumbers(int n);
-
+std::deque<int>		timedDequeSort(std::deque<int> &deq, double &elapsedMs);
 std::vector<int>	timedVectorSort(std::vector<int> &vec, double &elapsedMs);
-
 class CustomException : public std::runtime_error
 {
 	public:

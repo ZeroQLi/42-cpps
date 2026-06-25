@@ -1,5 +1,7 @@
 #include "PmergeMe.hpp"
 
+
+// Checking and Helper Functions
 std::vector<int> validateArgs(int argc, char **argv)
 {
 	std::vector<int>	sequence;
@@ -19,62 +21,7 @@ std::vector<int> validateArgs(int argc, char **argv)
 	return sequence;
 }
 
-std::vector<int> timedVectorSort(std::vector<int> &vec, double &elapsedMs)
-{
-	std::clock_t start = std::clock();
-	std::vector<int> result = recursiveMergeSort(vec);
-	std::clock_t end = std::clock();
-
-	elapsedMs = (double)(end - start) / CLOCKS_PER_SEC * 1000.0;
-	return result;
-}
-
-std::vector<Pair> createSortedPairs(const std::vector<int> &vec)
-{
-	std::vector<Pair> pairs;
-
-	// Group elements into pairs
-	for (size_t i = 0; i + 1 < vec.size(); i += 2)
-	{
-		int first = vec[i];
-		int second = vec[i + 1];
-
-		if (first > second)
-			pairs.push_back(std::make_pair(first, second));
-		else
-			pairs.push_back(std::make_pair(second, first));
-	}
-	return pairs;
-}
-
-std::vector<int> extractLargerElements(const std::vector<Pair> &pairs)
-{
-	std::vector<int> largerInts;
-	largerInts.reserve(pairs.size());
-
-	for (size_t i = 0; i < pairs.size(); ++i)
-		largerInts.push_back(pairs[i].first);
-	return largerInts;
-}
-
-std::vector<int> extractSmallerElements(const std::vector<Pair> &pairs)
-{
-	std::vector<int> SmallerInts;
-	SmallerInts.reserve(pairs.size());
-
-	for (size_t i = 0; i < pairs.size(); ++i)
-		SmallerInts.push_back(pairs[i].second);
-	return SmallerInts;
-}
-
-int	checkStray(const std::vector<int> &vec)
-{
-	if (vec.size() % 2 != 0)
-		return vec[vec.size() - 1];
-	return -1;
-}
-
-std::vector<int>	generateJacobsthalNumbers(int n)
+std::vector<int> generateJacobsthalNumbers(int n)
 {
 	std::vector<int> jacob;
 
@@ -93,7 +40,75 @@ std::vector<int>	generateJacobsthalNumbers(int n)
 	return jacob;
 }
 
-int binarySearchInsert(const std::vector<int> &vec, int target, int low, int high)
+// Timing Functions
+std::vector<int> timedVectorSort(std::vector<int> &vec, double &elapsedMs)
+{
+	std::clock_t start = std::clock();
+	std::vector<int> result = recursiveMergeSort(vec);
+	std::clock_t end = std::clock();
+
+	elapsedMs = (double)(end - start) / CLOCKS_PER_SEC * 1000.0;
+	return result;
+}
+
+std::deque<int> timedDequeSort(std::deque<int> &deq, double &elapsedMs)
+{
+	std::clock_t start = std::clock();
+	std::deque<int> result = recursiveMergeSortDeque(deq);
+	std::clock_t end = std::clock();
+
+	elapsedMs = (double)(end - start) / CLOCKS_PER_SEC * 1000.0;
+	return result;
+}
+
+// Vector Functions
+
+std::vector<Pair>	createSortedPairs(const std::vector<int> &vec)
+{
+	std::vector<Pair> pairs;
+
+	// Group elements into pairs
+	for (size_t i = 0; i + 1 < vec.size(); i += 2)
+	{
+		int first = vec[i];
+		int second = vec[i + 1];
+
+		if (first > second)
+			pairs.push_back(std::make_pair(first, second));
+		else
+			pairs.push_back(std::make_pair(second, first));
+	}
+	return pairs;
+}
+
+std::vector<int>	extractLargerElements(const std::vector<Pair> &pairs)
+{
+	std::vector<int> largerInts;
+	largerInts.reserve(pairs.size());
+
+	for (size_t i = 0; i < pairs.size(); ++i)
+		largerInts.push_back(pairs[i].first);
+	return largerInts;
+}
+
+std::vector<int>	extractSmallerElements(const std::vector<Pair> &pairs)
+{
+	std::vector<int> SmallerInts;
+	SmallerInts.reserve(pairs.size());
+
+	for (size_t i = 0; i < pairs.size(); ++i)
+		SmallerInts.push_back(pairs[i].second);
+	return SmallerInts;
+}
+
+int	checkStray(const std::vector<int> &vec)
+{
+	if (vec.size() % 2 != 0)
+		return vec[vec.size() - 1];
+	return -1;
+}
+
+int	binarySearchInsert(const std::vector<int> &vec, int target, int low, int high)
 {
 	int	mid;
 
@@ -155,6 +170,113 @@ std::vector<int> recursiveMergeSort(std::vector<int> &vec)
 	if (stray != -1)
 	{
 		int insertPos = binarySearchInsert(main_chain, stray, 0, main_chain.size());
+		main_chain.insert(main_chain.begin() + insertPos, stray);
+	}
+	return main_chain;
+}
+
+// Deque Functions
+
+std::deque<Pair>	createSortedPairsDeque(const std::deque<int> &deq)
+{
+	std::deque<Pair> pairs;
+
+	for (size_t i = 0; i + 1 < deq.size(); i += 2)
+	{
+		int first = deq[i];
+		int second = deq[i + 1];
+
+		if (first > second)
+			pairs.push_back(std::make_pair(first, second));
+		else
+			pairs.push_back(std::make_pair(second, first));
+	}
+	return pairs;
+}
+
+std::deque<int>	extractLargerElementsDeque(const std::deque<Pair> &pairs)
+{
+	std::deque<int> largerInts;
+
+	for (size_t i = 0; i < pairs.size(); ++i)
+		largerInts.push_back(pairs[i].first);
+	return largerInts;
+}
+
+std::deque<int>	extractSmallerElementsDeque(const std::deque<Pair> &pairs)
+{
+	std::deque<int> smallerInts;
+
+	for (size_t i = 0; i < pairs.size(); ++i)
+		smallerInts.push_back(pairs[i].second);
+	return smallerInts;
+}
+
+int	checkStrayDeque(const std::deque<int> &deq)
+{
+	if (deq.size() % 2 != 0)
+		return deq[deq.size() - 1];
+	return -1;
+}
+
+int	binarySearchInsertDeque(const std::deque<int> &deq, int target, int low, int high)
+{
+	int mid;
+
+	while (low < high)
+	{
+		mid = low + (high - low) / 2;
+		if (deq[mid] < target)
+			low = mid + 1;
+		else
+			high = mid;
+	}
+	return low;
+}
+
+std::deque<int>	recursiveMergeSortDeque(std::deque<int> &deq)
+{
+	if (deq.size() <= 1)
+		return deq;
+	if (deq.size() == 2)
+	{
+		if (deq[0] > deq[1])
+			std::swap(deq[0], deq[1]);
+		return deq;
+	}
+	std::deque<Pair> pairs = createSortedPairsDeque(deq);
+	int stray = checkStrayDeque(deq);
+
+	std::deque<int> larger_elements = extractLargerElementsDeque(pairs);
+	std::deque<int> main_chain = recursiveMergeSortDeque(larger_elements);
+	std::deque<int> pend_chain = extractSmallerElementsDeque(pairs);
+	if (!pend_chain.empty())
+	{
+		main_chain.insert(main_chain.begin(), pend_chain[0]);
+		pend_chain.erase(pend_chain.begin());
+	}
+	std::vector<int> jacobNumbers = generateJacobsthalNumbers(pend_chain.size());
+
+	for (size_t i = 0; i < jacobNumbers.size(); ++i)
+	{
+		int pendIndex = jacobNumbers[i] - 1;
+
+		if (pendIndex >= 0 && pendIndex < static_cast<int>(pend_chain.size()))
+		{
+			int elementToInsert = pend_chain[pendIndex];
+			int insertPos = binarySearchInsertDeque(main_chain, elementToInsert, 0, main_chain.size());
+			main_chain.insert(main_chain.begin() + insertPos, elementToInsert);
+			pend_chain.erase(pend_chain.begin() + pendIndex);
+		}
+	}
+	for (size_t i = 0; i < pend_chain.size(); ++i)
+	{
+		int insertPos = binarySearchInsertDeque(main_chain, pend_chain[i], 0, main_chain.size());
+		main_chain.insert(main_chain.begin() + insertPos, pend_chain[i]);
+	}
+	if (stray != -1)
+	{
+		int insertPos = binarySearchInsertDeque(main_chain, stray, 0, main_chain.size());
 		main_chain.insert(main_chain.begin() + insertPos, stray);
 	}
 	return main_chain;
