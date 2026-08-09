@@ -5,6 +5,7 @@
 # include <sstream>
 # include <cctype>
 # include <list>
+# include <string>
 
 class RPN
 {

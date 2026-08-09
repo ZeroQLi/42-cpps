@@ -5,7 +5,9 @@
 # include <fstream>
 # include <sstream>
 # include <cctype>
+# include <string>
 # include <map>
+# include <stdexcept>
 
 class BitcoinExchange
 {

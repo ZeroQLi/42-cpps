@@ -186,17 +186,17 @@ double BitcoinExchange::_getValue(const std::string &value)
 
 	if (!(ss >> val))
 	{
-		std::cout << "Error: bad value input\n";
+		std::cerr << "Error: bad value input\n";
 		return (-1);
 	}
 	if (val < 0)
 	{
-		std::cout << "Error: not a positive number => " << val << "\n";
+		std::cerr << "Error: not a positive number => " << val << "\n";
 		return (-1);
 	}
 	else if (val > 1000)
 	{
-		std::cout << "Error: value too large => " << val << "\n";
+		std::cerr << "Error: value too large => " << val << "\n";
 		return (-1);
 	}
 	return (val);
