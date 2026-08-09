@@ -39,25 +39,22 @@ void RPN::calc(const std::string &expr)
 		{
 			std::stringstream tokenStream(token);
 			tokenStream >> num;
-			if (tokenStream.fail() || !tokenStream.eof() || _stack.size() == 2)
+			if (tokenStream.fail() || !tokenStream.eof())
 				throw InvalidExpr();
-			_stack.push(num);
+			_stack.push_back(num);
 		}
 		else if (token == "+" || token == "-" || token == "*" || token == "/")
 		{
-			if (_stack.size() != 2)
+			if (_stack.size() < 2)
 				throw InvalidExpr();
 			double a;
 			double b;
 
-			if (_stack.size() < 2)
-				throw EmptyStack();
-
-			a = _stack.top();
-			_stack.pop();
-			b = _stack.top();
-			_stack.pop();
-			_stack.push(execOperation(a, b, token));
+			a = _stack.back();
+			_stack.pop_back();
+			b = _stack.back();
+			_stack.pop_back();
+			_stack.push_back(execOperation(a, b, token));
 		}
 		else
 			throw InvalidExpr();
@@ -105,5 +102,5 @@ double RPN::getResult() const
 		throw EmptyStack();
 	else if (_stack.size() > 1)
 		throw MultiStack();
-	return (_stack.top());
+	return (_stack.back());
 }

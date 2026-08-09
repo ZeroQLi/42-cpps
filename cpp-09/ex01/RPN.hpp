@@ -4,12 +4,12 @@
 # include <iostream>
 # include <sstream>
 # include <cctype>
-# include <stack>
+# include <list>
 
 class RPN
 {
 	private:
-		std::stack<double> _stack;
+		std::list<double> _stack;
 		double execOperation(double a, double b, const std::string &op);
 
 		double	_add(double a, double b);
@@ -63,4 +63,3 @@ class RPN
 };
 
 #endif
-
