@@ -25,6 +25,26 @@ RPN::~RPN(void)
 	return ;
 }
 
+const char *RPN::InvalidExpr::what() const throw()
+{
+	return ("Invalid expression");
+}
+
+const char *RPN::DivisionByZero::what() const throw()
+{
+	return ("Divide by zero");
+}
+
+const char *RPN::EmptyStack::what() const throw()
+{
+	return ("Invalid expression: Stack Empty");
+}
+
+const char *RPN::MultiStack::what() const throw()
+{
+	return ("Invalid expression: Multiple items in stack");
+}
+
 void RPN::calc(const std::string &expr)
 {
 	std::stringstream ss(expr);

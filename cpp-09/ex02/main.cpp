@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 			std::vector<int> sortedVec = timedVectorSort(vec, VecTimeMs);
 			std::deque<int> sortedDeq = timedDequeSort(deq, DeqTimeMs);
 
-			std::cout << "After:  ";
+			std::cout << "After: ";
 			for (size_t i = 0; i < sortedVec.size() - 1; i++)
 				std::cout << sortedVec[i] << ' ';
 			std::cout << sortedVec[vec.size() - 1] << "\n";
@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 		catch(const std::exception& e)
 		{
 			std::cerr << e.what() << '\n';
+			return (1);
 		}
 	}
 	return (0);

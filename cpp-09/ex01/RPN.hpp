@@ -29,37 +29,25 @@ class RPN
 		class InvalidExpr : public std::exception
 		{
 			public:
-				virtual const char *what() const throw()
-				{
-					return ("Invalid expression");
-				}
+				virtual const char *what() const throw();
 		};
 
 		class DivisionByZero : public std::exception
 		{
 			public:
-				virtual const char *what() const throw()
-				{
-					return ("Divide by zero");
-				}
+				virtual const char *what() const throw();
 		};
 
 		class EmptyStack : public std::exception
 		{
 			public:
-				virtual const char *what() const throw()
-				{
-					return ("Invalid expression: Stack Empty");
-				}
+				virtual const char *what() const throw();
 		};
 
 		class MultiStack : public std::exception
 		{
 			public:
-				virtual const char *what() const throw()
-				{
-					return ("Invalid expression: Multiple items in stack");
-				}
+				virtual const char *what() const throw();
 		};
 };
 

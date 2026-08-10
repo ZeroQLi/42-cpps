@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		std::cout << "Usage: ./bitcoin [file]" << std::endl;
+		std::cout << "Usage: ./btc [file]" << std::endl;
 		return (1);
 	}
 	else
@@ -20,6 +20,7 @@ int main(int argc, char **argv)
 		catch(const std::exception& e)
 		{
 			std::cerr << "ERROR: " << e.what() << '\n';
+			return (1);
 		}
 	}
 }

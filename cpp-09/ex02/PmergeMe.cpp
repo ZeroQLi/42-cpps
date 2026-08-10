@@ -40,6 +40,51 @@ std::vector<int> generateJacobsthalNumbers(int n)
 	return jacob;
 }
 
+static std::vector<int> generateInsertionOrder(int pairCount)
+{
+	std::vector<int> order;
+	std::vector<int> jacobNumbers;
+	int previous;
+
+	if (pairCount <= 1)
+		return order;
+	jacobNumbers = generateJacobsthalNumbers(pairCount);
+	previous = 1;
+	for (size_t i = 0; i < jacobNumbers.size() && previous < pairCount; ++i)
+	{
+		int upper = jacobNumbers[i];
+
+		if (upper <= previous)
+			continue ;
+		if (upper > pairCount)
+			upper = pairCount;
+		for (int pairIndex = upper; pairIndex > previous; --pairIndex)
+			order.push_back(pairIndex - 1);
+		previous = upper;
+	}
+	return order;
+}
+
+static std::vector<Pair> orderPairsByLarger(
+	const std::vector<Pair> &pairs, const std::vector<int> &largerElements)
+{
+	std::vector<Pair> orderedPairs;
+
+	orderedPairs.reserve(pairs.size());
+	for (size_t i = 0; i < largerElements.size(); ++i)
+	{
+		for (size_t j = 0; j < pairs.size(); ++j)
+		{
+			if (pairs[j].first == largerElements[i])
+			{
+				orderedPairs.push_back(pairs[j]);
+				break ;
+			}
+		}
+	}
+	return orderedPairs;
+}
+
 // Timing Functions
 std::vector<int> timedVectorSort(std::vector<int> &vec, double &elapsedMs)
 {
@@ -91,16 +136,6 @@ std::vector<int>	extractLargerElements(const std::vector<Pair> &pairs)
 	return largerInts;
 }
 
-std::vector<int>	extractSmallerElements(const std::vector<Pair> &pairs)
-{
-	std::vector<int> SmallerInts;
-	SmallerInts.reserve(pairs.size());
-
-	for (size_t i = 0; i < pairs.size(); ++i)
-		SmallerInts.push_back(pairs[i].second);
-	return SmallerInts;
-}
-
 int	checkStray(const std::vector<int> &vec)
 {
 	if (vec.size() % 2 != 0)
@@ -123,6 +158,31 @@ int	binarySearchInsert(const std::vector<int> &vec, int target, int low, int hig
 	return low; // This is the insertion position
 }
 
+static void insertPendingVector(std::vector<int> &mainChain,
+	const std::vector<Pair> &orderedPairs)
+{
+	std::vector<int> insertionOrder;
+
+	if (orderedPairs.empty())
+		return ;
+	mainChain.insert(mainChain.begin(), orderedPairs[0].second);
+	insertionOrder = generateInsertionOrder(orderedPairs.size());
+	for (size_t i = 0; i < insertionOrder.size(); ++i)
+	{
+		int pairIndex = insertionOrder[i];
+		int partnerPosition = 0;
+		int insertPosition;
+
+		while (partnerPosition < static_cast<int>(mainChain.size())
+			&& mainChain[partnerPosition] != orderedPairs[pairIndex].first)
+			++partnerPosition;
+		insertPosition = binarySearchInsert(mainChain,
+			orderedPairs[pairIndex].second, 0, partnerPosition);
+		mainChain.insert(mainChain.begin() + insertPosition,
+			orderedPairs[pairIndex].second);
+	}
+}
+
 std::vector<int> recursiveMergeSort(std::vector<int> &vec)
 {
 	if (vec.size() <= 1)
@@ -138,35 +198,7 @@ std::vector<int> recursiveMergeSort(std::vector<int> &vec)
 
 	std::vector<int> larger_elements = extractLargerElements(pairs);
 	std::vector<int> main_chain = recursiveMergeSort(larger_elements);
-	std::vector<int> pend_chain = extractSmallerElements(pairs);
-	if (!pend_chain.empty())
-	{
-		main_chain.insert(main_chain.begin(), pend_chain[0]);
-		pend_chain.erase(pend_chain.begin());
-	}
-	// jacobshatl thingies
-	std::vector<int> jacobNumbers = generateJacobsthalNumbers(pend_chain.size());
-
-	for (size_t i = 0; i < jacobNumbers.size(); ++i)
-	{
-		int pendIndex = jacobNumbers[i] - 1;
-
-		// Check if this index is valid in pend_chain
-		if (pendIndex >= 0 && pendIndex < static_cast<int>(pend_chain.size()))
-		{
-			int elementToInsert = pend_chain[pendIndex];
-			// Find correct position using binary search
-			int insertPos = binarySearchInsert(main_chain, elementToInsert, 0, main_chain.size());
-			// Insert at the found position
-			main_chain.insert(main_chain.begin() + insertPos, elementToInsert);
-			pend_chain.erase(pend_chain.begin() + pendIndex);
-		}
-	}
-	for (size_t i = 0; i < pend_chain.size(); ++i)
-	{
-		int insertPos = binarySearchInsert(main_chain, pend_chain[i], 0, main_chain.size());
-		main_chain.insert(main_chain.begin() + insertPos, pend_chain[i]);
-	}
+	insertPendingVector(main_chain, orderPairsByLarger(pairs, main_chain));
 	if (stray != -1)
 	{
 		int insertPos = binarySearchInsert(main_chain, stray, 0, main_chain.size());
@@ -194,6 +226,50 @@ std::deque<Pair>	createSortedPairsDeque(const std::deque<int> &deq)
 	return pairs;
 }
 
+static std::deque<Pair> orderPairsByLargerDeque(
+	const std::deque<Pair> &pairs, const std::deque<int> &largerElements)
+{
+	std::deque<Pair> orderedPairs;
+
+	for (size_t i = 0; i < largerElements.size(); ++i)
+	{
+		for (size_t j = 0; j < pairs.size(); ++j)
+		{
+			if (pairs[j].first == largerElements[i])
+			{
+				orderedPairs.push_back(pairs[j]);
+				break ;
+			}
+		}
+	}
+	return orderedPairs;
+}
+
+static void insertPendingDeque(std::deque<int> &mainChain,
+	const std::deque<Pair> &orderedPairs)
+{
+	std::vector<int> insertionOrder;
+
+	if (orderedPairs.empty())
+		return ;
+	mainChain.push_front(orderedPairs[0].second);
+	insertionOrder = generateInsertionOrder(orderedPairs.size());
+	for (size_t i = 0; i < insertionOrder.size(); ++i)
+	{
+		int pairIndex = insertionOrder[i];
+		int partnerPosition = 0;
+		int insertPosition;
+
+		while (partnerPosition < static_cast<int>(mainChain.size())
+			&& mainChain[partnerPosition] != orderedPairs[pairIndex].first)
+			++partnerPosition;
+		insertPosition = binarySearchInsertDeque(mainChain,
+			orderedPairs[pairIndex].second, 0, partnerPosition);
+		mainChain.insert(mainChain.begin() + insertPosition,
+			orderedPairs[pairIndex].second);
+	}
+}
+
 std::deque<int>	extractLargerElementsDeque(const std::deque<Pair> &pairs)
 {
 	std::deque<int> largerInts;
@@ -201,15 +277,6 @@ std::deque<int>	extractLargerElementsDeque(const std::deque<Pair> &pairs)
 	for (size_t i = 0; i < pairs.size(); ++i)
 		largerInts.push_back(pairs[i].first);
 	return largerInts;
-}
-
-std::deque<int>	extractSmallerElementsDeque(const std::deque<Pair> &pairs)
-{
-	std::deque<int> smallerInts;
-
-	for (size_t i = 0; i < pairs.size(); ++i)
-		smallerInts.push_back(pairs[i].second);
-	return smallerInts;
 }
 
 int	checkStrayDeque(const std::deque<int> &deq)
@@ -249,31 +316,7 @@ std::deque<int>	recursiveMergeSortDeque(std::deque<int> &deq)
 
 	std::deque<int> larger_elements = extractLargerElementsDeque(pairs);
 	std::deque<int> main_chain = recursiveMergeSortDeque(larger_elements);
-	std::deque<int> pend_chain = extractSmallerElementsDeque(pairs);
-	if (!pend_chain.empty())
-	{
-		main_chain.insert(main_chain.begin(), pend_chain[0]);
-		pend_chain.erase(pend_chain.begin());
-	}
-	std::vector<int> jacobNumbers = generateJacobsthalNumbers(pend_chain.size());
-
-	for (size_t i = 0; i < jacobNumbers.size(); ++i)
-	{
-		int pendIndex = jacobNumbers[i] - 1;
-
-		if (pendIndex >= 0 && pendIndex < static_cast<int>(pend_chain.size()))
-		{
-			int elementToInsert = pend_chain[pendIndex];
-			int insertPos = binarySearchInsertDeque(main_chain, elementToInsert, 0, main_chain.size());
-			main_chain.insert(main_chain.begin() + insertPos, elementToInsert);
-			pend_chain.erase(pend_chain.begin() + pendIndex);
-		}
-	}
-	for (size_t i = 0; i < pend_chain.size(); ++i)
-	{
-		int insertPos = binarySearchInsertDeque(main_chain, pend_chain[i], 0, main_chain.size());
-		main_chain.insert(main_chain.begin() + insertPos, pend_chain[i]);
-	}
+	insertPendingDeque(main_chain, orderPairsByLargerDeque(pairs, main_chain));
 	if (stray != -1)
 	{
 		int insertPos = binarySearchInsertDeque(main_chain, stray, 0, main_chain.size());

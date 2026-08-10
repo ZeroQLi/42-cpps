@@ -27,6 +27,26 @@ BitcoinExchange::~BitcoinExchange(void)
 	return ;
 }
 
+const char *BitcoinExchange::FileError::what() const throw()
+{
+	return ("Could not open file.");
+}
+
+const char *BitcoinExchange::InvalidColumnFormat::what() const throw()
+{
+	return ("Invalid column format.");
+}
+
+const char *BitcoinExchange::InvalidDateFormat::what() const throw()
+{
+	return ("Invalid date format. Expected valid 'YYYY-MM-DD'");
+}
+
+const char *BitcoinExchange::InvalidPriceFormat::what() const throw()
+{
+	return ("Invalid price format. Expected number between 0.0 and 1000.0");
+}
+
 void BitcoinExchange::_dumpDatabase()
 {
 	std::ifstream	file("data.csv");

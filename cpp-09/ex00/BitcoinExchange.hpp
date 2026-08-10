@@ -29,37 +29,25 @@ class BitcoinExchange
 		class FileError : public std::exception
 		{
 			public:
-				virtual const char *what() const throw()
-				{
-					return ("Could not open file.");
-				}
+				virtual const char *what() const throw();
 		};
 
 		class InvalidColumnFormat : public std::exception
 		{
 		public:
-			virtual const char *what() const throw()
-			{
-				return ("Invalid column format.");
-			}
+			virtual const char *what() const throw();
 		};
 
 		class InvalidDateFormat : public std::exception
 		{
 		public:
-			virtual const char *what() const throw()
-			{
-				return ("Invalid date format. Expected valid 'YYYY-MM-DD'");
-			}
+			virtual const char *what() const throw();
 		};
 
 		class InvalidPriceFormat : public std::exception
 		{
 		public:
-			virtual const char *what() const throw()
-			{
-				return ("Invalid price format. Expected number between 0.0 and 1000.0");
-			}
+			virtual const char *what() const throw();
 		};
 };
 
