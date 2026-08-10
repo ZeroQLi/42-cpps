@@ -6,6 +6,7 @@
 # include <cctype>
 # include <list>
 # include <string>
+# include <exception>
 
 class RPN
 {
