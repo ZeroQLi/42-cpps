@@ -31,8 +31,8 @@ int					binarySearchInsertDeque(const std::deque<int> &deq, int target, int low,
 std::deque<int>		recursiveMergeSortDeque(std::deque<int> &deq);
 
 std::vector<int>	generateJacobsthalNumbers(int n);
-std::deque<int>		timedDequeSort(std::deque<int> &deq, double &elapsedMs);
-std::vector<int>	timedVectorSort(std::vector<int> &vec, double &elapsedMs);
+std::deque<int>		timedDequeSort(const std::deque<int> &input, double &elapsedMs);
+std::vector<int>	timedVectorSort(const std::vector<int> &input, double &elapsedMs);
 class CustomException : public std::runtime_error
 {
 	public:
@@ -40,4 +40,3 @@ class CustomException : public std::runtime_error
 };
 
 #endif
-

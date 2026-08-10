@@ -91,20 +91,22 @@ static std::vector<Pair> orderPairsByLarger(
 }
 
 // Timing Functions
-std::vector<int> timedVectorSort(std::vector<int> &vec, double &elapsedMs)
+std::vector<int> timedVectorSort(const std::vector<int> &input, double &elapsedMs)
 {
 	std::clock_t start = std::clock();
-	std::vector<int> result = recursiveMergeSort(vec);
+	std::vector<int> working(input.begin(), input.end());
+	std::vector<int> result = recursiveMergeSort(working);
 	std::clock_t end = std::clock();
 
 	elapsedMs = (double)(end - start) / CLOCKS_PER_SEC * 1000.0;
 	return result;
 }
 
-std::deque<int> timedDequeSort(std::deque<int> &deq, double &elapsedMs)
+std::deque<int> timedDequeSort(const std::deque<int> &input, double &elapsedMs)
 {
 	std::clock_t start = std::clock();
-	std::deque<int> result = recursiveMergeSortDeque(deq);
+	std::deque<int> working(input.begin(), input.end());
+	std::deque<int> result = recursiveMergeSortDeque(working);
 	std::clock_t end = std::clock();
 
 	elapsedMs = (double)(end - start) / CLOCKS_PER_SEC * 1000.0;
