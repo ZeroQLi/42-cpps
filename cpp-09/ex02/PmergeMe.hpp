@@ -36,7 +36,7 @@ std::vector<int>	timedVectorSort(std::vector<int> &vec, double &elapsedMs);
 class CustomException : public std::runtime_error
 {
 	public:
-		explicit CustomException(std::string err): runtime_error(err) {}
+		explicit CustomException(std::string err);
 };
 
 #endif

@@ -1,5 +1,10 @@
 #include "PmergeMe.hpp"
 
+// Exception
+CustomException::CustomException(std::string err)
+	: std::runtime_error(err)
+{
+}
 
 // Checking and Helper Functions
 std::vector<int> validateArgs(int argc, char **argv)
