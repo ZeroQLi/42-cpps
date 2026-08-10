@@ -97,6 +97,12 @@ void BitcoinExchange::readInput(const char *file)
 		std::string	value;
 		double	multiplier;
 
+		if (std::count(line.begin(), line.end(), '|') != 1)
+		{
+			std::cerr << "Error: bad value input\n";
+			continue ;
+		}
+
 		std::stringstream	ss(line);
 		std::getline(ss, date, '|');
 		std::getline(ss, value, '|');
@@ -202,9 +208,10 @@ bool BitcoinExchange::_checkDate(const std::string &date)
 double BitcoinExchange::_getValue(const std::string &value)
 {
 	std::stringstream ss(value);
+	char	extra;
 	double		val;
 
-	if (!(ss >> val))
+	if (!(ss >> val) || ss >> extra)
 	{
 		std::cerr << "Error: bad value input\n";
 		return (-1);

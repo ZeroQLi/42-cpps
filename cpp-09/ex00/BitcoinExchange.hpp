@@ -8,6 +8,7 @@
 # include <string>
 # include <map>
 # include <stdexcept>
+# include <algorithm>
 
 class BitcoinExchange
 {
